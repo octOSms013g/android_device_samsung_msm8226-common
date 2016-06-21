@@ -33,6 +33,9 @@
 #include <camera/Camera.h>
 #include <camera/CameraParameters2.h>
 
+#define BACK_CAMERA     0
+#define FRONT_CAMERA    1
+
 static android::Mutex gCameraWrapperLock;
 static camera_module_t *gVendorModule = 0;
 
@@ -156,6 +159,10 @@ static char *camera_fixup_setparams(struct camera_device *device, const char *se
     int id = CAMERA_ID(device);
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
+
+    if (id == FRONT_CAMERA) {
+        params.set(android::CameraParameters::KEY_FLASH_MODE, android::CameraParameters::FLASH_MODE_OFF);
+    }
 
 #if !LOG_NDEBUG
     ALOGV("%s: original parameters:", __FUNCTION__);
