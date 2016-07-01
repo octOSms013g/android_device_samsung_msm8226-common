@@ -13,9 +13,6 @@ use.voice.path.for.pcm.voip=false
 ro.bluetooth.hfp.ver=1.6
 ro.qualcomm.bt.hci_transport=smd
 
-# Camera
-camera2.portability.force_api=1
-
 # Dalvik
 dalvik.vm.heapstartsize=8m
 dalvik.vm.heapgrowthlimit=128m
