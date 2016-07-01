@@ -33,9 +33,6 @@
 #include <camera/Camera.h>
 #include <camera/CameraParameters2.h>
 
-#define BACK_CAMERA     0
-#define FRONT_CAMERA    1
-
 static android::Mutex gCameraWrapperLock;
 static camera_module_t *gVendorModule = 0;
 
@@ -109,13 +106,12 @@ const static char * iso_values[] = {"auto,ISO_HJR,ISO100,ISO200,ISO400,ISO800,IS
 
 static char *camera_fixup_getparams(int id, const char *settings)
 {
-    const char *supportedSceneModes = "auto,asd,landscape,snow,beach,sunset,night,portrait,backlight,sports,steadyphoto,flowers,candlelight,fireworks,party,night-portrait,theatre,action,AR";
-
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
 
-     if (id == FRONT_CAMERA) {
-          params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES, supportedSceneModes);
+     if (id == 1) {
+        params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES,
+            "auto,asd,landscape,snow,beach,sunset,night,portrait,backlight,sports,steadyphoto,flowers,candlelight,fireworks,party,night-portrait,theatre,action,AR");
      }
 
 #if !LOG_NDEBUG
